@@ -1,10 +1,12 @@
+/* eslint-disable @next/next/no-title-in-document-head */
 import { Html, Head, Main, NextScript } from 'next/document';
 
 export default function Document() {
   return (
     <Html lang='en'>
       <Head>
-        <meta name='viewport' content='initial-scale=1.0, width=device-width' />
+        <title>Kolibri For Impact test assignment</title>
+        <link rel='icon' href='https://kolibriforimpact.com/main-logo.png' />
         <meta name='author' content='Ady Rahmansyah' />
         <meta property='og:url' content='https://kolibriforimpact.com/' />
         <meta property='og:type' content='landing page' />

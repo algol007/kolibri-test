@@ -16,15 +16,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout ?? ((page) => page);
 
-  return (
-    <>
-      <Head>
-        <meta name='viewport' content='initial-scale=1, width=device-width' />
-        <title>Create Next App</title>
-      </Head>
-      {getLayout(<Component {...pageProps} />)}
-    </>
-  );
+  return <>{getLayout(<Component {...pageProps} />)}</>;
 }
 
 export default MyApp;

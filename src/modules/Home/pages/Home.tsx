@@ -1,6 +1,6 @@
 'use client'; // this is a client component 👈🏽
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Bars3Icon } from '@heroicons/react/24/outline';
 import { CalendarDaysIcon, HandRaisedIcon } from '@heroicons/react/24/outline';
 import { features, links, navigation, posts, stats } from '../constant';
@@ -12,8 +12,15 @@ function Home() {
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
   const [content, setContent] = useState<any>('');
 
+  const fetchAllContents = useCallback((): Promise<unknown> => {
+    return getAllContents().then((res) => {
+      setContent(res.data);
+    });
+  }, []);
+
   useEffect(() => {
-    getAllContents().then((res) => setContent(res.data));
+    fetchAllContents();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -96,10 +103,10 @@ function Home() {
           </div>
           <div className='text-center'>
             <h1 className='text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl'>
-              {content.attributes.title.slice(30)}
+              {content?.attributes?.title.slice(30)}
             </h1>
             <p className='mt-6 text-lg leading-8 text-gray-600'>
-              {content.attributes.body.slice(0, 149)}
+              {content?.attributes?.body.slice(0, 149)}
             </p>
             <div className='mt-10 flex items-center justify-center gap-x-6'>
               <a
