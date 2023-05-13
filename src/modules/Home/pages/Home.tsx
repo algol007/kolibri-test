@@ -1,14 +1,20 @@
 'use client'; // this is a client component 👈🏽
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Bars3Icon } from '@heroicons/react/24/outline';
 import { CalendarDaysIcon, HandRaisedIcon } from '@heroicons/react/24/outline';
 import { features, links, navigation, posts, stats } from '../constant';
 import Sidebar from '@/components/Sidebar/Sidebar';
 import Image from 'next/image';
+import { getAllContents } from '../services/content';
 
 function Home() {
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
+  const [content, setContent] = useState<any>('');
+
+  useEffect(() => {
+    getAllContents().then((res) => setContent(res.data));
+  }, []);
 
   return (
     <div className='bg-white'>
@@ -90,12 +96,10 @@ function Home() {
           </div>
           <div className='text-center'>
             <h1 className='text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl'>
-              Data to enrich your online business
+              {content.attributes.title.slice(30)}
             </h1>
             <p className='mt-6 text-lg leading-8 text-gray-600'>
-              Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui
-              lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat
-              fugiat aliqua.
+              {content.attributes.body.slice(0, 149)}
             </p>
             <div className='mt-10 flex items-center justify-center gap-x-6'>
               <a
